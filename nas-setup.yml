@@ -1,0 +1,5 @@
+---
+- name: Setup nas
+  hosts: nas_group
+  roles:
+    - manage-drives

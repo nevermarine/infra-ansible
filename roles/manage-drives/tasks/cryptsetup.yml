@@ -1,0 +1,36 @@
+---
+- name: Create dir for keyfile
+  ansible.builtin.file:
+    state: directory
+    path: "{{ luks_keyfile_dest_dir }}"
+  become: true
+- name: Copy LUKS keyfile
+  ansible.builtin.copy:
+    src: "{{ luks_keyfile }}"
+    dest: "{{ luks_keyfile_dest_path }}"
+  become: true
+
+- name: Encrypt and open devices
+  community.crypto.luks_device:
+    device: "{{ item }}"
+    state: opened
+    passphrase: "{{ luks_passphrase }}"
+    name: "{{ luks_opened_device_prefix }}{{ ansible_loop.index }}"
+    # keyfile: "{{ luks_keyfile_dest_path }}"
+  loop: "{{ luks_devices }}"
+  loop_control:
+    extended: true
+  register: tmp_results
+  become: true
+
+# - name: Print luks devices
+#   debug:
+#     msg: "{{ luks_created_devices.results }}"
+
+- name: Print luks devices
+  debug:
+    msg: "{{ tmp_results.results | map(attribute='invocation.module_args.name') | list  }}"
+
+- name: Create opened devices var
+  set_fact:
+    luks_opened_drives: "{{ tmp_results.results | map(attribute='invocation.module_args.name') | list | map('regex_replace', '^', '/dev/mapper/') }}"

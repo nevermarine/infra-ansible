@@ -1,0 +1,46 @@
+---
+- name: Mkdir /data
+  ansible.builtin.file:
+    path: /data
+    state: directory
+  become: true
+
+- name: Temporary mount btrfs
+  ansible.posix.mount:
+    path: /mnt
+    src: "{{ luks_opened_drives[0] }}"
+    state: mounted
+    fstype: btrfs
+  become: true
+
+- name: Create subvolumes
+  community.general.btrfs_subvolume:
+    name: "/@{{ item }}"
+    # filesystem_device: "{{ luks_opened_drives[0] }}"
+    filesystem_uuid: "{{ luks_uuid }}"
+  loop: "{{ subvolumes }}"
+  become: true
+
+- name: Unmount btrfs
+  ansible.posix.mount:
+    path: /mnt
+    src: "{{ luks_opened_drives[0] }}"
+    state: unmounted
+  become: true
+
+- name: Mkdir subdirs
+  ansible.builtin.file:
+    path: "/data/{{ item }}"
+    state: directory
+  loop: "{{ subvolumes }}"
+  become: true
+
+- name: Mount subvolumes
+  ansible.posix.mount:
+    path: /data/{{item}}
+    src: "{{ luks_opened_drives[0] }}"
+    state: mounted
+    fstype: btrfs
+    opts: rw,noatime,nofail,compress-force=zstd,subvol=@{{ item }}
+  loop: "{{ subvolumes }}"
+  become: true

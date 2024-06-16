@@ -1,0 +1,5 @@
+---
+# vars file for encrypt-drives
+luks_keyfile_dest_path:  "{{ luks_keyfile_dest_dir}}/{{ luks_keyfile_dest_filename }}"
+luks_opened_device_prefix: luks
+luks_devices: "{{ drives }}"

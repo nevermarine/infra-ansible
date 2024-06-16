@@ -1,0 +1,6 @@
+---
+# tasks file for manage-drives
+- include_tasks: install.yml
+- include_tasks: check.yml
+- include_tasks: cryptsetup.yml
+- include_tasks: filesystem.yml

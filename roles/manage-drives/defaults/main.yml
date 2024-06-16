@@ -1,0 +1,15 @@
+---
+# defaults file for encrypt-drives
+luks_keyfile:
+luks_keyfile_dest_dir:
+luks_keyfile_dest_filename:
+luks_passphrase:
+drives: []
+subvolumes:
+  - "movies"
+  - "music"
+  - "gens"
+  - "personal"
+  - "backups"
+  - "stuff"
+luks_uuid:

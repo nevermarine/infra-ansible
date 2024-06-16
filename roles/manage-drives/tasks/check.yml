@@ -1,0 +1,6 @@
+- name: Check if drives are present
+  ansible.builtin.stat:
+    path: "{{ item }}"
+  loop: "{{ luks_devices }}"
+  register: luks_devices_stat
+  failed_when: not luks_devices_stat.stat.exists
