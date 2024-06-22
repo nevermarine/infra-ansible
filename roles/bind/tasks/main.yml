@@ -7,7 +7,8 @@
 
 - name: Pull the Bind9 image
   containers.podman.podman_container:
-    name: "{{ bind_full_image }}"
+    name: "{{ bind_container_name }}"
+    image: "{{ bind_full_image }}"
     state: present
 
 - name: Create directories for Bind9 configuration and data

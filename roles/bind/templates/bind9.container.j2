@@ -1,6 +1,6 @@
 [Container]
 Image={{ bind_full_image }}
-Name=bind9
+Name={{ bind_container_name }}
 User=root
 Volume={{ bind_config_dir_prefix }}/config:/etc/bind:Z
 Volume={{ bind_config_dir_prefix }}/data:/var/lib/bind:Z

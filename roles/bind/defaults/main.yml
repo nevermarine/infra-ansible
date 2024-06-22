@@ -2,3 +2,4 @@
 bind_version: "latest"
 bind_image: "internetsystemsconsortium/bind9"
 bind_config_dir_prefix: "/srv/bind"
+bind_container_name: bind9
