@@ -1,0 +1,44 @@
+---
+- name: Install Podman
+  ansible.builtin.yum:
+    name: podman
+    state: present
+
+- name: Pull the dns server image
+  containers.podman.podman_container:
+    name: "{{ dns_container_name }}"
+    image: "{{ dns_full_image }}"
+    state: present
+
+- name: Create directories for dns server configuration and data
+  ansible.builtin.file:
+    path: "{{ dns_config_dir_prefix }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Deploy CoreDNS config
+  ansible.builtin.template:
+    src: Corefile.j2
+    dest: "{{ dns_config_dir_prefix }}/Corefile"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Deploy the Quadlet container file for DNS server
+  ansible.builtin.template:
+    src: coredns.container.j2
+    dest: /etc/containers/systemd/coredns.container
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Reload systemd to apply new Quadlet configurations
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Start the DNS server container service
+  ansible.builtin.systemd:
+    name: coredns.service
+    state: started

@@ -1,0 +1,15 @@
+[Container]
+Image={{ dns_full_image }}
+User=root
+Volume={{ dns_config_dir_prefix }}:/etc/coredns:Z
+Environment=TZ=UTC
+PublishPort=53:53/tcp
+PublishPort=53:53/udp
+Exec=-conf /etc/coredns/Corefile
+
+[Service]
+ExecStartPre=/usr/bin/podman pull {{ dns_full_image }}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

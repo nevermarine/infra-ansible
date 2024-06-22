@@ -1,0 +1,7 @@
+---
+dns_registry_url: docker.io
+dns_version: "1.11.1"
+dns_image: coredns/coredns
+dns_config_dir_prefix: "/srv/coredns"
+dns_container_name: coredns
+dns_zone: example.org
