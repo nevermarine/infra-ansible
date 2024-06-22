@@ -1,6 +1,6 @@
 ---
-- name: Install bind9
+- name: Install CoreDNS
   hosts: localhost
   become: true
   roles:
-    - bind
+    - dns
