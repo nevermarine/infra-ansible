@@ -1,0 +1,68 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ansible roles and collections
+# Ignore these if using roles/collections managed via Ansible Galaxy or other sources
+roles/
+collections/
+
+# Local environment variables and settings
+.env
+*.env
+*.local
+
+# Sensitive data
+*.vault
+*.secrets
+*.key
+*.cert
+
+# Log files and system generated files
+*.log
+*.bak
+*.swp
+*.tmp
+*.orig
+
+# Local configurations
+.vagrant/
+*.retry
+.inventory
+host_vars/
+group_vars/
+
+# Dependency management files (specific to the project, exclude if managed elsewhere)
+*.retry
+requirements.yml
+inventory
+
+# Ignore temporary Ansible execution files
+*.retry
+*_output
+_ansible_*
+.ansible/
+
+# Ignore IDE/editor specific files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore temporary files and backups
+*~
+*.bak
+*.swp
+*.tmp
+*.orig
+*.lock
+
+# Ignore documentation artifacts
+*.docx
+*.pdf
+*.md
+*.txt
+
+# Repo-specific files & dirs
+sensitive/
