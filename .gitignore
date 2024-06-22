@@ -5,8 +5,6 @@ __pycache__/
 
 # Ansible roles and collections
 # Ignore these if using roles/collections managed via Ansible Galaxy or other sources
-roles/
-collections/
 
 # Local environment variables and settings
 .env

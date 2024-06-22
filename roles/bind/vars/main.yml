@@ -1,2 +1,0 @@
----
-bind_full_image: "{{ bind_registry_url }}/{{ bind_image }}:{{ bind_version }}"
