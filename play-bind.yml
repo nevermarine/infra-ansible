@@ -1,0 +1,6 @@
+---
+- name: Install bind9
+  hosts: localhost
+  become: true
+  roles:
+    - bind
