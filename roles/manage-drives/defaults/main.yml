@@ -5,11 +5,5 @@ luks_keyfile_dest_dir:
 luks_keyfile_dest_filename:
 luks_passphrase:
 drives: []
-subvolumes:
-  - "movies"
-  - "music"
-  - "gens"
-  - "personal"
-  - "backups"
-  - "stuff"
+subvolumes: []
 luks_uuid:
