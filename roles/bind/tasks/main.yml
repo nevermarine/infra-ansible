@@ -1,0 +1,45 @@
+---
+# tasks file for primary-setup
+- name: Install Podman
+  ansible.builtin.yum:
+    name: podman
+    state: present
+
+- name: Pull the Bind9 image
+  containers.podman.podman_container:
+    name: "{{ bind_full_image }}"
+    state: present
+
+- name: Create directories for Bind9 configuration and data
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  with_items:
+    - "{{ bind_config_dir_prefix }}/config"
+    - "{{ bind_config_dir_prefix }}/data"
+    - "{{ bind_config_dir_prefix }}/cache"
+  become: true
+
+- name: Deploy the Quadlet container file for Bind9
+  ansible.builtin.template:
+    src: bind9.container.j2
+    dest: /etc/containers/systemd/bind9.container
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Reload systemd to apply new Quadlet configurations
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Enable the Bind9 container service
+  ansible.builtin.systemd:
+    name: bind9.service
+
+- name: Start the Bind9 container service
+  ansible.builtin.systemd:
+    name: bind9.service
+    state: started

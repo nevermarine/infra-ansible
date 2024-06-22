@@ -1,0 +1,2 @@
+---
+bind_full_image: "{{ bind_image }}:{{ bind_version }}"

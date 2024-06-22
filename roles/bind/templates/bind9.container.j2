@@ -1,0 +1,17 @@
+[Container]
+Image={{ bind_full_image }}
+Name=bind9
+User=root
+Volume={{ bind_config_dir_prefix }}/config:/etc/bind:Z
+Volume={{ bind_config_dir_prefix }}/data:/var/lib/bind:Z
+Volume={{ bind_config_dir_prefix }}/cache:/var/cache/bind:Z
+Environment=TZ=UTC
+Port=53:53/tcp
+Port=53:53/udp
+
+[Service]
+ExecStartPre=/usr/bin/podman pull {{ bind_full_image }}
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
