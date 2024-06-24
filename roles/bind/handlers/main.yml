@@ -1,0 +1,6 @@
+---
+- name: (Re)start the Bind9 container service
+  ansible.builtin.systemd:
+    name: bind9.service
+    state: started
+  listen: restart-bind

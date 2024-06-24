@@ -4,12 +4,14 @@
   ansible.builtin.yum:
     name: podman
     state: present
+  notify: restart-bind
 
 - name: Pull the Bind9 image
   containers.podman.podman_container:
     name: "{{ bind_container_name }}"
     image: "{{ bind_full_image }}"
     state: present
+  notify: restart-bind
 
 - name: Create directories for Bind9 configuration and data
   ansible.builtin.file:
@@ -23,7 +25,7 @@
     - "{{ bind_config_dir_prefix }}/records"
     - "{{ bind_config_dir_prefix }}/cache"
     - "{{ bind_config_dir_prefix }}/log"
-  become: true
+  notify: restart-bind
 
 - name: Create named.conf
   ansible.builtin.template:
@@ -32,6 +34,7 @@
     owner: root
     group: root
     mode: '0755'
+  notify: restart-bind
 
 - name: Create home zone file
   ansible.builtin.template:
@@ -40,6 +43,7 @@
     owner: root
     group: root
     mode: '0755'
+  notify: restart-bind
 
 - name: Deploy the Quadlet container file for Bind9
   ansible.builtin.template:
@@ -48,6 +52,7 @@
     owner: root
     group: root
     mode: '0644'
+  notify: restart-bind
 
 - name: Reload systemd to apply new Quadlet configurations
   ansible.builtin.systemd:
@@ -56,8 +61,3 @@
 - name: Enable the Bind9 container service
   ansible.builtin.systemd:
     name: bind9.service
-
-- name: Start the Bind9 container service
-  ansible.builtin.systemd:
-    name: bind9.service
-    state: started
