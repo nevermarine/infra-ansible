@@ -22,6 +22,7 @@
     - "{{ bind_config_dir_prefix }}/config"
     - "{{ bind_config_dir_prefix }}/records"
     - "{{ bind_config_dir_prefix }}/cache"
+    - "{{ bind_config_dir_prefix }}/log"
   become: true
 
 - name: Deploy the Quadlet container file for Bind9

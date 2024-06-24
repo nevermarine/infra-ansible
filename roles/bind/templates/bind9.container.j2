@@ -4,6 +4,7 @@ User=root
 Volume={{ bind_config_dir_prefix }}/config:/etc/bind:Z
 Volume={{ bind_config_dir_prefix }}/records:/var/lib/bind:Z
 Volume={{ bind_config_dir_prefix }}/cache:/var/cache/bind:Z
+Volume={{ bind_config_dir_prefix }}/log:/var/log/bind:Z
 Environment=TZ=Europe/Moscow
 PublishPort=53:53/tcp
 PublishPort=53:53/udp
