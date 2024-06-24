@@ -2,14 +2,13 @@
 Image={{ bind_full_image }}
 User=root
 Volume={{ bind_config_dir_prefix }}/config:/etc/bind:Z
-Volume={{ bind_config_dir_prefix }}/data:/var/lib/bind:Z
+Volume={{ bind_config_dir_prefix }}/records:/var/lib/bind:Z
 Volume={{ bind_config_dir_prefix }}/cache:/var/cache/bind:Z
-Environment=TZ=UTC
+Environment=TZ=Europe/Moscow
 PublishPort=53:53/tcp
 PublishPort=53:53/udp
 
 [Service]
-ExecStartPre=/usr/bin/podman pull {{ bind_full_image }}
 Exec=named -g
 Restart=always
 

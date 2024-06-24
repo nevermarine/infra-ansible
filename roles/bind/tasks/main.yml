@@ -20,7 +20,7 @@
     mode: '0755'
   with_items:
     - "{{ bind_config_dir_prefix }}/config"
-    - "{{ bind_config_dir_prefix }}/data"
+    - "{{ bind_config_dir_prefix }}/records"
     - "{{ bind_config_dir_prefix }}/cache"
   become: true
 
