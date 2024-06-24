@@ -25,6 +25,22 @@
     - "{{ bind_config_dir_prefix }}/log"
   become: true
 
+- name: Create named.conf
+  ansible.builtin.template:
+    src: templates/named.conf.j2
+    dest: "{{ bind_config_dir_prefix }}/config/named.conf"
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Create home zone file
+  ansible.builtin.template:
+    src: templates/db.home_zone.j2
+    dest: "{{ bind_config_dir_prefix }}/records/db.{{ bind_home_zone }}"
+    owner: root
+    group: root
+    mode: '0755'
+
 - name: Deploy the Quadlet container file for Bind9
   ansible.builtin.template:
     src: bind9.container.j2

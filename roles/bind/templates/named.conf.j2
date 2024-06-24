@@ -1,0 +1,10 @@
+options {
+        directory "/var/cache/bind";
+        listen-on { any; };
+        listen-on-v6 { ::1; };
+};
+
+zone "{{ dns_home_zone }}." {
+    type primary;
+    file "/var/lib/bind/db.{{ dns_home_zone }}";
+};

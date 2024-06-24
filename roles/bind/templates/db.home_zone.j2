@@ -1,0 +1,11 @@
+$TTL    86400 ; default expiration time (in seconds) of all RRs without their own TTL value
+@       IN      SOA     ns.{{ bind_home_zone }}. (
+                  3       ; Serial
+                  86400   ; Refresh (1 day)
+                  3600    ; Retry (1 hour)
+                  604800  ; Expire (1 week)
+                  3600 )  ; Negative Cache TTL (1 hour)
+
+; name servers - NS records
+@       IN      NS      ns.{{ bind_home_zone }}.
+ns.{{ bind_home_zone }}.    IN      A       {{ bind_vm_address }}
