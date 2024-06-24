@@ -1,5 +1,6 @@
 [Container]
 Image={{ bind_full_image }}
+Exec=named -g
 User=root
 Volume={{ bind_config_dir_prefix }}/config:/etc/bind:Z
 Volume={{ bind_config_dir_prefix }}/records:/var/lib/bind:Z
@@ -10,7 +11,6 @@ PublishPort=53:53/tcp
 PublishPort=53:53/udp
 
 [Service]
-Exec=named -g
 Restart=always
 
 [Install]
