@@ -1,6 +1,6 @@
 ---
-- name: Install CoreDNS
+- name: Install DNS server
   hosts: localhost
   become: true
   roles:
-    - dns
+    - bind
