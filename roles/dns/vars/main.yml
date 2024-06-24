@@ -1,2 +1,0 @@
----
-dns_full_image: "{{ dns_registry_url }}/{{ dns_image }}:{{ dns_version }}"

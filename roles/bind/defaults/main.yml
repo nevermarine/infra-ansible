@@ -1,0 +1,6 @@
+---
+bind_registry_url: docker.io
+bind_version: "9.19"
+bind_image: "internetsystemsconsortium/bind9"
+bind_config_dir_prefix: "/srv/bind"
+bind_container_name: bind9
