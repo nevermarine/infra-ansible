@@ -1,7 +1,14 @@
+acl homenets {
+    {{ bind_home_net_cidr }};
+    {{ bind_vm_net_cidr }};
+    {{ bind_k8s_net_cidr }};
+};
+
 options {
         directory "/var/cache/bind";
         listen-on { any; };
         listen-on-v6 { ::1; };
+        allow-query { homenets; };
 };
 
 zone "{{ bind_home_zone }}." {

@@ -5,3 +5,6 @@ bind_image: "internetsystemsconsortium/bind9"
 bind_config_dir_prefix: "/srv/bind"
 bind_container_name: bind9
 bind_home_zone:
+bind_home_net_cidr:
+bind_vm_net_cidr:
+bind_k8s_net_cidr:
