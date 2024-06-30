@@ -1,2 +1,2 @@
 ---
-docker_centos_repo: https://download.docker.com/linux/centos/docker-ce.repo
+docker_repo: https://download.docker.com/linux/fedora/docker-ce.repo

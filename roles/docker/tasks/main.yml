@@ -2,7 +2,7 @@
 - name: Install Docker repo
   ansible.builtin.yum_repository:
     name: docker-ce
-    baseurl: "{{ docker_centos_repo }}"
+    baseurl: "{{ docker_repo }}"
 
 - name: Install docker-ce and other packages
   ansible.builtin.dnf:
