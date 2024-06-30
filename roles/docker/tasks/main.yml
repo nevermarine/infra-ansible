@@ -5,6 +5,7 @@
     description: Docker repo
     baseurl: "{{ docker_repo }}"
     gpgcheck: true
+    gpgkey: "{{ docker_repo_gpg_key: }}"
 
 - name: Install docker-ce and other packages
   ansible.builtin.dnf:

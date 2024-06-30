@@ -2,4 +2,4 @@
 docker_repo_stage: stable
 docker_repo_baseurl: https://download.docker.com/linux/fedora
 docker_repo: "{{ docker_repo_baseurl }}/$releasever/$basearch/{{ docker_repo_stage }}"
-# docker_repo_gpg: "{{ docker_repo_baseurl }}/gpg"
+docker_repo_gpg_key: "{{ docker_repo_baseurl }}/gpg"
