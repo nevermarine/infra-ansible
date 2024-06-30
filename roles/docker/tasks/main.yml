@@ -4,6 +4,7 @@
     name: docker-ce
     description: Docker repo
     baseurl: "{{ docker_repo }}"
+    gpgcheck: true
 
 - name: Install docker-ce and other packages
   ansible.builtin.dnf:
