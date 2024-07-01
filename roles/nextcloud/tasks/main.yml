@@ -32,11 +32,7 @@
     mode: '0644'
   notify: restart-nextcloud
 
-- name: Flush handlers
-  ansible.builtin.meta: flush_handlers
-
 - name: Run Compose for Nextcloud
   community.docker.docker_compose_v2:
     project_src: "{{ nextcloud_config_dir_prefix }}"
     state: present
-  when: not nextcloud_restart.changed
