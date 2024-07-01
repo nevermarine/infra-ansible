@@ -1,12 +1,12 @@
 ---
 - name: Pull the Nextcloud image
-  containers.docker.docker_image:
+  community.docker.docker_image:
     name: "{{ nextcloud_image }}:{{ nextcloud_image_version }}"
     source: pull
   notify: restart-nextcloud
 
 - name: Pull the Nextcloud image
-  containers.docker.docker_image:
+  community.docker.docker_image:
     name: "{{ nextcloud_mariadb_image }}:{{ nextcloud_mariadb_image_version }}"
     source: pull
   notify: restart-nextcloud
