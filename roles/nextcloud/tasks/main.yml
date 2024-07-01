@@ -26,7 +26,7 @@
 - name: Deploy Compose for nextcloud
   ansible.builtin.template:
     src: nextcloud.yml.j2
-    dest: "{{ nextcloud_config_dir_prefix }}"
+    dest: "{{ nextcloud_config_dir_prefix }}/docker-compose.yml"
     owner: root
     group: root
     mode: '0644'
