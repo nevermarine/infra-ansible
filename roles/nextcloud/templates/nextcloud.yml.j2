@@ -6,7 +6,7 @@ services:
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     restart: always
     volumes:
-      - {{ nextcloud_config_dir_path }}/db:/var/lib/mysql
+      - {{ nextcloud_config_dir_prefix }}/db:/var/lib/mysql
     environment:
       MYSQL_DATABASE: nextcloud
       MYSQL_USER: nextcloud
@@ -20,7 +20,7 @@ services:
     links:
       - db
     volumes:
-      - {{ nextcloud_config_dir_path }}/nextcloud:/var/www/html
+      - {{ nextcloud_config_dir_prefix }}/nextcloud:/var/www/html
       - {{ nextcloud_data_path }}:/var/www/html/data
     restart: always
     environment:
