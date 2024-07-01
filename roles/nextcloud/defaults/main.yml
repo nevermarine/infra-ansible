@@ -1,0 +1,9 @@
+---
+nextcloud_mariadb_image: mariadb
+nextcloud_mariadb_image_version: 10.6
+nextcloud_image: nextcloud
+nextcloud_image_version: 29.0.3-apache
+nextcloud_config_dir_prefix: /srv/nextcloud
+nextcloud_data_path: /data
+nextcloud_mariadb_password:
+nextcloud_mariadb_root_password:

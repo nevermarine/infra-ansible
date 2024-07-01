@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  db:
+    image: {{ nextcloud_mariadb_image }}:{{ nextcloud_mariadb_image_version }} 
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: always
+    volumes:
+      - {{ nextcloud_config_dir_path }}/db:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_ROOT_PASSWORD: {{ nextcloud_mariadb_root_password }}
+      MYSQL_PASSWORD: {{ nextcloud_mariadb_password }}
+
+  app:
+    image: {{ nextcloud_image }}:{{ nextcloud_image_version }} 
+    ports:
+      - 8080:80
+    links:
+      - db
+    volumes:
+      - {{ nextcloud_config_dir_path }}/nextcloud:/var/www/html
+      - {{ nextcloud_data_path }}:/var/www/html/data
+    restart: always
+    environment:
+      MYSQL_HOST: db
+      MYSQL_DATABASE: nextcloud
+      MYSQL_USER: nextcloud
+      MYSQL_PASSWORD: {{ nextcloud_mariadb_password }}
+
+volumes:
+  db_data:
+  nextcloud:

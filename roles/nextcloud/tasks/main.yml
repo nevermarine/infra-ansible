@@ -1,0 +1,38 @@
+---
+- name: Pull the Nextcloud image
+  containers.docker.docker_image:
+    name: "{{ nextcloud_image }}:{{ nextcloud_image_version }}"
+    source: pull
+  notify: restart-nextcloud
+
+- name: Pull the Nextcloud image
+  containers.docker.docker_image:
+    name: "{{ nextcloud_mariadb_image }}:{{ nextcloud_mariadb_image_version }}"
+    source: pull
+  notify: restart-nextcloud
+
+- name: Create directories for Nextcloud configuration and db
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  with_items:
+    - "{{ nextcloud_config_dir_prefix }}/db"
+    - "{{ nextcloud_config_dir_prefix }}/nextcloud"
+  notify: restart-nextcloud
+
+- name: Deploy Compose for nextcloud
+  ansible.builtin.template:
+    src: nextcloud.yml.j2
+    dest: "{{ nextcloud_config_dir_prefix }}"
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart-nextcloud
+
+# - name: Run Compose for Nextcloud
+#   community.docker.docker_compose_v2:
+#     project_src: "{{ nextcloud_config_dir_prefix }}"
+#     state: present

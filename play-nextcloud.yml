@@ -1,0 +1,7 @@
+---
+- name: Configure Nextcloud
+  hosts: localhost
+  become: true
+  roles:
+    - docker
+    - nextcloud
