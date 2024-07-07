@@ -1,5 +1,7 @@
 ---
 - name: Setup nas
-  hosts: nas_group
+  hosts: localhost
   roles:
     - manage-drives
+    - docker
+    - nextcloud
