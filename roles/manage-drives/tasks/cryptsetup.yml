@@ -14,9 +14,8 @@
   community.crypto.luks_device:
     device: "{{ item }}"
     state: opened
-    passphrase: "{{ luks_passphrase }}"
     name: "{{ luks_opened_device_prefix }}{{ ansible_loop.index }}"
-    # keyfile: "{{ luks_keyfile_dest_path }}"
+    keyfile: "{{ luks_keyfile_dest_path }}"
   loop: "{{ luks_devices }}"
   loop_control:
     extended: true

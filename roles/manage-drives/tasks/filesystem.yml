@@ -9,8 +9,14 @@
   ansible.posix.mount:
     path: /mnt
     src: "{{ luks_opened_drives[0] }}"
-    state: mounted
+    state: ephemeral
     fstype: btrfs
+  become: true
+
+- name: Create root subvolume
+  community.general.btrfs_subvolume:
+    name: "/@dataroot"
+    filesystem_uuid: "{{ luks_uuid }}"
   become: true
 
 - name: Create subvolumes
@@ -26,6 +32,15 @@
     path: /mnt
     src: "{{ luks_opened_drives[0] }}"
     state: unmounted
+  become: true
+
+- name: Mount root subvol
+  ansible.posix.mount:
+    path: /data/
+    src: "{{ luks_opened_drives[0] }}"
+    state: mounted
+    fstype: btrfs
+    opts: rw,noatime,nofail,compress-force=zstd,subvol=@dataroot
   become: true
 
 - name: Mkdir subdirs
