@@ -33,3 +33,14 @@
 - name: Create opened devices var
   set_fact:
     luks_opened_drives: "{{ tmp_results.results | map(attribute='invocation.module_args.name') | list | map('regex_replace', '^', '/dev/mapper/') }}"
+
+- name: Create crypttab
+  community.general.crypttab:
+    name: "{{ luks_opened_device_prefix }}{{ ansible_loop.index }}"
+    backing_device: "UUID={{ drive_uuids[ansible_loop.index0] }}"
+    password: "{{ luks_keyfile_dest_path }}"
+    state: present
+  loop: "{{ luks_devices }}"
+  loop_control:
+    extended: true
+  become: true

@@ -7,3 +7,4 @@ luks_passphrase:
 drives: []
 subvolumes: []
 luks_uuid:
+drive_uuids: []
